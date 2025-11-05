@@ -1,0 +1,113 @@
+####################################################################################################
+# DeepStream Ultraface test config for Jetson Orin Nano
+# Single-source version (for debugging
+###########x#########################################################################################
+
+[application]
+enable-perf-measurement=1
+perf-measurement-interval-sec=5
+
+[tiled-display]
+enable=1
+rows=2
+columns=2
+width=1920
+height=1080
+gpu-id=0
+nvbuf-memory-type=0
+
+################################################################################
+# Single video input
+################################################################################
+[source0]
+enable=1
+type=2
+uri=file:///home/ubuntu/projects/faceRecognizer-main/demoVideos/unknown/demo_video_3.mp4
+num-sources=4
+gpu-id=0
+cudadec-memtype=0
+
+[source1]
+enable=1
+type=2
+uri=file:///home/ubuntu/projects/faceRecognizer-main/demoVideos/unknown/demo_video_3.mp4
+#num-sources=1
+gpu-id=0
+cudadec-memtype=0
+
+[source2]
+enable=1
+type=2
+uri=file:///home/ubuntu/projects/faceRecognizer-main/demoVideos/unknown/demo_video_3.mp4
+#num-sources=1
+gpu-id=0
+cudadec-memtype=0
+
+[source3]
+enable=1
+type=2
+uri=file:///home/ubuntu/projects/faceRecognizer-main/demoVideos/unknown/demo_video_3.mp4
+#num-sources=1
+gpu-id=0
+cudadec-memtype=0
+
+################################################################################
+# Display output (EGL Sink)
+################################################################################
+[sink0]
+enable=1
+#type=2               # EGL sink for display
+type=3
+container=1
+codec=1
+enc-type=1
+output-file=out_4_source.mp4
+sync=0
+source-id=0
+gpu-id=0
+nvbuf-memory-type=0
+
+################################################################################
+# On-screen display (OSD)
+################################################################################
+[osd]
+enable=1
+gpu-id=0
+border-width=2
+text-size=15
+text-color=1;1;1;1;
+text-bg-color=0.3;0.3;0.3;1
+font=Serif
+show-clock=1
+nvbuf-memory-type=0
+
+################################################################################
+# Stream muxer — preprocess frames for inference
+################################################################################
+[streammux]
+gpu-id=0
+live-source=0
+batch-size=4                     # match single source
+batched-push-timeout=33000
+width=1920                        # input video width
+height=1080                       # input video height
+enable-padding=1
+nvbuf-memory-type=0
+buffer-pool-size=4
+
+################################################################################
+# Primary GIE — Ultraface face detector
+################################################################################
+[primary-gie]
+enable=1
+gpu-id=0
+model-engine-file=/home/ubuntu/models/onnx/ultraface_onnx/ultraface640-dynamic-batch.onnx_b4_gpu0_fp16.engine
+config-file=/home/ubuntu/config_infer_ultraface_multisource.txt
+batch-size=4		# 4 sources
+interval=0
+gie-unique-id=1
+nvbuf-memory-type=0
+
+################################################################################
+[tests]
+file-loop=0
