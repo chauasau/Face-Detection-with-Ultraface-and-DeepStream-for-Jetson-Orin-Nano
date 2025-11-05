@@ -1,4 +1,4 @@
-# FACE DETECTION WITH DEEPSTREAM FOR JETSON ORIN NANO
+# Face Detection With DeepStream For Jetson Orin Nano
 
 ## DeepStream installation
 ### Download DeepStream SDK for Jetson Orin Nano
@@ -7,7 +7,7 @@
     deepstream-app --version
     ```
 
-- Follow the instructions in [NVIDIA DeepStream SDK documentation](https://docs.nvidia.com/metropolis/deepstream/7.1/index.html) for installation, in this project I use DeepStream 7.1 to be compatible with Jetpack6.1.
+- Follow the instructions in [NVIDIA DeepStream SDK documentation](https://docs.nvidia.com/metropolis/deepstream/7.1/index.html) for installation, in this project I use DeepStream 7.1 to be compatible with Jetpack 6.1.
 
 - Check again if the installation success:
     ```bash
